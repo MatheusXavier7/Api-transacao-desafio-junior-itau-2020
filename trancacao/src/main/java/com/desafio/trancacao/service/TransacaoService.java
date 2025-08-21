@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TransacaoService {
@@ -26,7 +25,7 @@ public class TransacaoService {
          OffsetDateTime dataHoraIntervalo = OffsetDateTime.now().minusSeconds(segundos);
          return listaTransacoes.stream()
                  .filter(t -> t.getDataHora().isAfter(dataHoraIntervalo))
-                 .collect(Collectors.toList());
+                 .toList();
      }
 
      public List<TransacaoDTO> getListaTransacoes(){
