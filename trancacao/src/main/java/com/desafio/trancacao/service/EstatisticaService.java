@@ -16,6 +16,9 @@ public class EstatisticaService {
     private TransacaoService transacaoService;
 
     public EstatisticaDTO createEstatistica(Integer tempo) {
+        if (tempo > 1799) {
+            throw new IllegalArgumentException("O valor de 'segundos' não pode ser maior que 1799.");
+        }
         List<TransacaoDTO> transacoes = transacaoService.getTransacao(tempo);
         DoubleSummaryStatistics statistics = transacoes.stream()
                 .collect(Collectors.summarizingDouble(TransacaoDTO::getValor));
