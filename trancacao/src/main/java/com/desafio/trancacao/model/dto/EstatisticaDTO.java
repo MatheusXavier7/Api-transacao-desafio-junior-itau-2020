@@ -7,6 +7,8 @@ public class EstatisticaDTO {
     private double min;
     private double max;
 
+    public EstatisticaDTO() {
+    }
     public EstatisticaDTO(long count, double sum, double avg, double min, double max) {
         this.count = count;
         this.sum = sum;

@@ -24,7 +24,12 @@ public class TransacaoService {
 
      public List<TransacaoDTO> getTransacao(Integer segundos){
          OffsetDateTime dataHoraIntervalo = OffsetDateTime.now().minusSeconds(segundos);
-         return listaTransacoes.stream().filter(t -> t.getDataHora()
-                 .equals(dataHoraIntervalo)).collect(Collectors.toList());
+         return listaTransacoes.stream()
+                 .filter(t -> t.getDataHora().isAfter(dataHoraIntervalo))
+                 .collect(Collectors.toList());
+     }
+
+     public List<TransacaoDTO> getListaTransacoes(){
+         return listaTransacoes;
      }
 }

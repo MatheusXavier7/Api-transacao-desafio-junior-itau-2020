@@ -1,18 +1,33 @@
 package com.desafio.trancacao.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.OffsetDateTime;
 
 public class TransacaoDTO {
     private double valor;
     private OffsetDateTime dataHora;
 
-    TransacaoDTO(double valor, OffsetDateTime dataHora) {
-        if(valor >=0 ) {
-            this.valor = valor;
+    @JsonCreator
+    public TransacaoDTO(
+            @JsonProperty("valor") Double valor,
+            @JsonProperty("dataHora") OffsetDateTime dataHora) {
+
+        if (valor == null) {
+            throw new IllegalArgumentException("O campo 'valor' não pode ser nulo.");
         }
-        if(dataHora.isBefore(OffsetDateTime.now())) {
-            this.dataHora = dataHora;
+        if (dataHora == null) {
+            throw new IllegalArgumentException("O campo 'dataHora' não pode ser nulo.");
         }
+        if (valor < 0) {
+            throw new IllegalArgumentException("O valor não pode ser negativo.");
+        }
+        if (dataHora.isBefore(OffsetDateTime.now())) {
+            throw new IllegalArgumentException("A dataHora não pode ser no passado.");
+        }
+        this.valor = valor;
+        this.dataHora = dataHora;
     }
 
 
